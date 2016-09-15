@@ -1,9 +1,12 @@
 # Complete linkage
 
 ## Compilation
+```
 g++ -std=c++11 -o cl completelinkage.cpp
+```
 
 ## Output
+```
 % ./cl 
 A[1: P1(0,1)]
 B[1: P2(3,5)]
@@ -56,3 +59,4 @@ F[3: P6(4,4) P5(2,4) P1(0,1)]
 ----5.74456(P1(0,1),P2(3,5))
 Merging C[3] with F[3] because of points P2(3,5) and P1(0,1) with distance 5.74456
 C[6: P3(2,3) P4(1,4) P2(3,5) P6(4,4) P5(2,4) P1(0,1)]
+```
