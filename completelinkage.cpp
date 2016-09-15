@@ -126,7 +126,6 @@ public:
                     maxP1 = p1;
                     maxP2 = p2;
                     maxC2 = c;
-                    
                 }
             }
         }
@@ -227,16 +226,10 @@ int main()
         std::vector<Cluster>::iterator iter = std::find(clusters.begin(), clusters.end(), std::get<0>(minTuple));
         if(iter != clusters.end())
         {
-            Cluster& cc1 = *iter;
-            std::cout << "Searching for " << std::get<0>(minTuple).toString() << " and found " << cc1.toString() << std::endl;
-            
             std::vector<Cluster>::iterator iter2 = std::find(clusters.begin(), clusters.end(), std::get<2>(std::get<1>(minTuple)));
             if(iter2 != clusters.end())
             {
-                Cluster& cc2 = *iter2;
-                std::cout << "Searching for " << std::get<2>(std::get<1>(minTuple)).toString() << " and found " << cc2.toString() << std::endl;
-                
-                cc1.merge(cc2);
+                iter->merge(*iter2);
             }
         }
 
