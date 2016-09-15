@@ -12,8 +12,6 @@ F[1: P6(4,4)]
 ----4.3589(P5(2,4),P1(0,1))
 ----5.56776(P6(4,4),P1(0,1))
 Merging D[1] with B[1] because of points P4(1,4) and P2(3,5) with distance 4.12311
-Searching for D[1] and found D[1]
-Searching for B[1] and found B[1]
 A[1: P1(0,1)]
 C[1: P3(2,3)]
 D[2: P4(1,4) P2(3,5)]
@@ -26,8 +24,6 @@ F[1: P6(4,4)]
 ----4.3589(P5(2,4),P1(0,1))
 ----5.56776(P6(4,4),P1(0,1))
 Merging E[1] with A[1] because of points P5(2,4) and P1(0,1) with distance 4.3589
-Searching for E[1] and found E[1]
-Searching for A[1] and found A[1]
 C[1: P3(2,3)]
 D[2: P4(1,4) P2(3,5)]
 E[2: P5(2,4) P1(0,1)]
@@ -38,8 +34,6 @@ F[1: P6(4,4)]
 ----5.74456(P1(0,1),P2(3,5))
 ----5.56776(P6(4,4),P1(0,1))
 Merging C[1] with D[2] because of points P3(2,3) and P2(3,5) with distance 4.58258
-Searching for C[1] and found C[1]
-Searching for D[2] and found D[2]
 C[3: P3(2,3) P4(1,4) P2(3,5)]
 E[2: P5(2,4) P1(0,1)]
 F[1: P6(4,4)]
@@ -48,14 +42,10 @@ F[1: P6(4,4)]
 ----5.74456(P1(0,1),P2(3,5))
 ----5.56776(P6(4,4),P1(0,1))
 Merging F[1] with E[2] because of points P6(4,4) and P1(0,1) with distance 5.56776
-Searching for F[1] and found F[1]
-Searching for E[2] and found E[2]
 C[3: P3(2,3) P4(1,4) P2(3,5)]
 F[3: P6(4,4) P5(2,4) P1(0,1)]
 ============================================ 5
 ----5.74456(P2(3,5),P1(0,1))
 ----5.74456(P1(0,1),P2(3,5))
 Merging C[3] with F[3] because of points P2(3,5) and P1(0,1) with distance 5.74456
-Searching for C[3] and found C[3]
-Searching for F[3] and found F[3]
 C[6: P3(2,3) P4(1,4) P2(3,5) P6(4,4) P5(2,4) P1(0,1)]
