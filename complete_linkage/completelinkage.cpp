@@ -6,6 +6,9 @@
 #include <algorithm>
 #include <tuple>
 
+/*
+ * A simple Point class with two integer coordinates and a label
+ */
 class Point
 {
     std::string label;
@@ -19,36 +22,31 @@ public:
         return label;
     }
     
-    int getX() const
+    std::tuple<int, int> getPosition() const
     {
-        return x;
-    }
-    
-    int getY() const
-    {
-        return y;
+        return std::tuple<int, int>(x, y);
     }
     
     double getDistance(const Point& point) const
-    {
-        return sqrt(abs(pow(x,2)-pow(point.getX(),2)) + abs(pow(y,2)-pow(point.getY(),2)));
+    {   // pythagoras
+        return sqrt(abs(pow(x,2)-pow(std::get<0>(point.getPosition()),2)) + abs(pow(y,2)-pow(std::get<1>(point.getPosition()),2)));
     }
     
     std::string toString() const
     {
         std::ostringstream ss;
-     ss << label << "(" << x << "," << y << ")";
-     return ss.str();
+        ss << label << "(" << x << "," << y << ")";
+        return ss.str();
     }
     
     bool operator==(const Point& p) const
     {
-        return label == p.getLabel() && x == p.getX() && y == p.getY();
+        return label == p.getLabel() && getPosition() == p.getPosition();
     }
     
     bool operator!=(const Point& p) const
     {
-        return !(label == p.getLabel() && x == p.getX() && y == p.getY());
+        return !(label == p.getLabel() && getPosition() == p.getPosition());
     }
 };
 
@@ -71,18 +69,18 @@ public:
 
     std::string toString(bool showElements = false) const
     {
-        std::ostringstream ss;
-     ss << label << "[" << length();
-     if(showElements)
-     {
-        ss << ":";
-        for(Point p: points)
-        {
-            ss << " " << p.toString();
-        }
-     }
-     ss << "]";
-     return ss.str();
+         std::ostringstream ss;
+         ss << label << "[" << length();
+         if(showElements)
+         {
+            ss << ":";
+            for(Point p: points)
+            {
+                ss << " " << p.toString();
+            }
+         }
+         ss << "]";
+         return ss.str();
     }
 
     std::vector<Point> getPoints() const
@@ -150,7 +148,7 @@ public:
 };
 
 int main()
-{
+{   // First define the initial clusters, one cluster per point is a default assumption
     Cluster c1("A", Point("P1", 0, 1));
     Cluster c2("B", Point("P2", 3, 5));
     Cluster c3("C", Point("P3", 2, 3));
@@ -172,9 +170,8 @@ int main()
         std::vector<std::tuple<Cluster, std::tuple<double, Point, Cluster, Point> > > minTuples;
         for(auto c1: clusters)
         {
-       
-                double c1MaxDist = 0.0;
-
+            // For each other cluster c2, compute the distance to the nodes in c2 that are 
+            // the furthest away from the nodes in c1
             std::vector<std::tuple<double, Point, Cluster, Point> > c1Tuples;
             for(auto c2: clusters)
             {
@@ -184,8 +181,8 @@ int main()
                 }
             }
             
+            // Now store the cluster which is at the largest distance for c1
             std::tuple<double, Point, Cluster, Point> c1MaxTuple;
-            
             bool firstIter = true;
             for(std::tuple<double, Point, Cluster, Point> t: c1Tuples)
             {
@@ -205,6 +202,8 @@ int main()
             minTuples.push_back(std::tuple<Cluster, std::tuple<double, Point, Cluster, Point> >(c1, c1MaxTuple));
         }
         
+        // Since we want the minimum maximum distance, we now search for the closest distances,
+        // with the distances we found above
         std::tuple<Cluster, std::tuple<double, Point, Cluster, Point> > minTuple;
         bool firstIter = true;
         
@@ -223,6 +222,7 @@ int main()
         }
         std::cout << "Merging " << std::get<0>(minTuple).toString() << " with " << std::get<2>(std::get<1>(minTuple)).toString() << " because of points " << std::get<1>(std::get<1>(minTuple)).toString() << " and " << std::get<3>(std::get<1>(minTuple)).toString() << " with distance " << std::get<0>(std::get<1>(minTuple)) << std::endl;
 
+        // Merge the clusters (This ugly piece of code is because of some issues with references and objects)
         std::vector<Cluster>::iterator iter = std::find(clusters.begin(), clusters.end(), std::get<0>(minTuple));
         if(iter != clusters.end())
         {
@@ -233,6 +233,7 @@ int main()
             }
         }
 
+        // Remove the empty clusters
         clusters.erase(std::remove_if(
             clusters.begin(), clusters.end(),
             [](const Cluster& c) {

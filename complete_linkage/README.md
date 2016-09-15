@@ -1,3 +1,10 @@
+# Complete linkage
+
+## Compilation
+g++ -std=c++11 -o cl completelinkage.cpp
+
+## Output
+% ./cl 
 A[1: P1(0,1)]
 B[1: P2(3,5)]
 C[1: P3(2,3)]
