@@ -17,21 +17,12 @@ int main(int argc, char *argv[])
     std::string inputValues;
     std::getline(std::cin, inputValues);
     
-    std::vector<std::bitset<32>> a;
-    std::istringstream iss(inputValues);
-    std::transform(std::istream_iterator<std::string>(iss),
-                   std::istream_iterator<std::string>{},
-                   std::back_inserter(a),
-                   [](const auto& v){ return std::bitset<32>(std::stoul(v)); });
-
-//    std::sort(a.begin(), 
-//              a.end(), 
-//              [](const auto & lhs, const auto & rhs){ return lhs.to_string() < rhs.to_string(); });
-
     std::unordered_map<std::bitset<32>, unsigned long> m;
-    for(const auto& v: a)
+    std::istringstream iss(inputValues);
+    std::string v;
+    while(iss >> v)
     {
-        ++m[v];
+        ++m[std::bitset<32>(std::stoul(v))];
     }
 
     unsigned results = 0;
