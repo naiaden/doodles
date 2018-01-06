@@ -8,6 +8,8 @@
 #include <bitset>
 #include <unordered_map>
 
+//tail -n 1 851cc5e6ef0111e7.txt.clean.txt| tr ' ' '\n' | sort | uniq -c | sort -r | cut -f7 -d' ' | sort | uniq -c | awk '{if($2>1) print $1*($2*($2-1))/2}' | paste -s -d+ - | bc
+
 int main(int argc, char *argv[])
 {
     unsigned long n;
@@ -17,27 +19,26 @@ int main(int argc, char *argv[])
     std::string inputValues;
     std::getline(std::cin, inputValues);
     
-    std::unordered_map<std::bitset<32>, unsigned long> m;
+    std::unordered_map<unsigned long, unsigned long> counts;
+    std::unordered_map<unsigned long, unsigned long> countsOfCounts;
+    
     std::istringstream iss(inputValues);
-    std::string v;
+    std::string v; 
     while(iss >> v)
     {
-        ++m[std::bitset<32>(std::stoul(v))];
+        ++counts[std::stoul(v)];
+    }
+
+    for(auto i = counts.begin(); i != counts.end(); ++i)
+    {
+        ++countsOfCounts[i->second];
     }
 
     unsigned results = 0;
-    for(auto i = m.begin(); i != m.end(); ++i)
+    for(auto i = countsOfCounts.begin(); i != countsOfCounts.end(); ++i)
     {
-        for(auto j = i; j != m.end(); ++j)
-        {
-            if(!(i->first ^ j->first).count())
-            {
-                if( i==j)
-                    results += ((i->second-1) * (j->second-1));                
-                else
-                    results += (i->second * j->second);
-            }
-        }
+        if(i->first > 1)
+            results += i->second * (i->first * (i->first -1))/2;
     }
       
     std::cout << results << "\n";
