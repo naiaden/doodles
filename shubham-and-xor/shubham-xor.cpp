@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     std::getline(std::cin, inputValues);
     
     std::unordered_map<unsigned long, unsigned long> counts;
-    std::unordered_map<unsigned long, unsigned long> countsOfCounts;
+    std::unordered_map<unsigned long, unsigned long long> countsOfCounts;
     
     std::istringstream iss(inputValues);
     std::string v; 
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
         ++countsOfCounts[i->second];
     }
 
-    unsigned results = 0;
+    unsigned long long results = 0;
     for(auto i = countsOfCounts.begin(); i != countsOfCounts.end(); ++i)
     {
         if(i->first > 1)
